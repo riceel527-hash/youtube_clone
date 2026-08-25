@@ -3,7 +3,6 @@ import { Box, Stack, Typography } from '@mui/material';
 
 import { fetchFromAPI } from '../utils/fetchFromAPI';
 import { Sidebar , Videos } from './';
-import { mockData }  from '../utils/mockData';
 
 
 
@@ -13,10 +12,10 @@ const Feed = () => {
   const [videos, setVideos] = useState([]);
 
   useEffect(() => {
-  fetchFromAPI(`search?part=snippet&q=${selectedCategory}`)
+  fetchFromAPI(`search?part=snippet&q=${encodeURIComponent(selectedCategory)}`)
   .then((data) => {
     console.log(data);
-    setVideos(data.contents);
+    setVideos(data.items || []);
   });
   }, [selectedCategory]);
 
@@ -27,8 +26,7 @@ const Feed = () => {
     "column", md: "row" } }}>
     <Box sx={{ height: { sx: 'auto', md:'92vh' }, borderRight: '1px solid #3d3d3d', px: { sx: 0, md: 2 }}}>
       <Sidebar 
-      selectedCategory={selectedCategory}setSelectedCategory={setSelectedCategory}
-      
+      selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory}
       />
 
       <Typography className= "copyright" variant="body2" sx={{ mt: 1.5, color:"#fff" }}>
@@ -38,7 +36,7 @@ const Feed = () => {
 
       <Box p={2} sx={{ overflowY: 'auto', height: '90vh', flex: 2}}>
         <Typography variant="h4" fontWeight="bold" mb={2}  sx={{ color: 'white' }}>
-          New <span style={{ color: '#F31503'}}>videos</span>
+          {selectedCategory} <span style={{ color: '#F31503'}}>videos</span>
         </Typography>
 
         <Videos videos={videos}/>
