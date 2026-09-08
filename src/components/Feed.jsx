@@ -3,6 +3,7 @@ import { Box, Stack, Typography } from '@mui/material';
 
 import { fetchFromAPI } from '../utils/fetchFromAPI';
 import { Sidebar , Videos } from './';
+import { mockVideos } from '../utils/mockData';
 
 
 
@@ -12,14 +13,8 @@ const Feed = () => {
   const [videos, setVideos] = useState([]);
 
   useEffect(() => {
-  fetchFromAPI(`search?part=snippet&q=${encodeURIComponent(selectedCategory)}`)
-  .then((data) => {
-    console.log(data);
-    setVideos(data.items || []);
-  });
-  }, [selectedCategory]);
-
-
+  setVideos(mockVideos);
+}, [selectedCategory]);
 
   return (
     <Stack sx={{ flexDirection: { sx: 

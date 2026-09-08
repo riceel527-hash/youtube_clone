@@ -4,22 +4,20 @@ import { Box } from "@mui/material";
 
 import { Videos, ChannelCard } from "./";
 import { fetchFromAPI } from "../utils/fetchFromAPI";
+import { mockVideos, mockChannelDetail } from "../utils/mockData";
 
 const ChannelDetail = () => {
   const [channelDetail, setChannelDetail] = useState(null);
   const [videos, setVideos] = useState([]);
 
   const { id } = useParams();
-  useEffect(() => {
-    fetchFromAPI(`channels?part=snippet&id=${id}`).then((data) => {
-      console.log("Data coming back from API: ", data);
-      setChannelDetail(data?.items[0]);
-    });
 
-    fetchFromAPI(`search?channelId=${id}&part=snippet&order=date`).then(
-      (data) => setVideos(data?.items),
-    );
-  }, [id]);
+useEffect(() => {
+  setChannelDetail(mockChannelDetail);
+  setVideos(mockVideos);
+}, [id]);
+
+
 
   return (
     <Box minHeight="95vh">
