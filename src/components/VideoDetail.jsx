@@ -10,13 +10,13 @@ import { fetchFromAPI } from '../utils/fetchFromAPI';
 
 
 const VideoDetail = () => {
-  const [VideoDetail, setVideoDetail] = useState(null);
+  const [videoDetail, setvideoDetail] = useState(null);
   const [ videos, setVideos ] = useState(null);
   const { id }  = useParams();
 
   useEffect(() => {
-    fetchFromAPI(`videos?part=snippet,statistics&id=${id}`).then((data)=> setVideoDetail(data.items[0])); 
-    fetchFromAPI( `search?part=snippet&relatedToVideoId=${id}&type=video`).then((data) => SettingsInputSvideoSharp(data.items));
+    fetchFromAPI(`videos?part=snippet,statistics&id=${id}`).then((data)=> setvideoDetail(data.items[0])); 
+    fetchFromAPI( `search?part=snippet&relatedToVideoId=${id}&type=video`).then((data) => setVideos(data.items));
   },[id]);
 
 
@@ -27,9 +27,8 @@ const VideoDetail = () => {
   return (
     <Box minHeight="95vh">
       <Stack direction={{ xs: 'column', md: 'row' }}>
-        <Box flex={1}>
-          <Box>
-          <Box sx={{ width: '100', position: 'sticky', top: '86px' }}>
+        <Box> flex={1}>
+          <Box sx={{ width: '100%', position: 'sticky', top: '86px' }}>
            <ReactPlayer url ={`https://www.youtube.com/watch?v=${id}`} className="react-player" controls />
            <Typography color="#fff" variant="h5" fontWeight="bold" p={2}>
             {title}
